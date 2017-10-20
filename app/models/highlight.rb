@@ -1,4 +1,3 @@
 class Highlight < ApplicationRecord
-
-  validates :title, uniqeness: true
+  validates :title, uniqueness: true
 end
