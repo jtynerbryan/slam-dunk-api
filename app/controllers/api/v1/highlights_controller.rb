@@ -18,7 +18,7 @@ class Api::V1::HighlightsController < ApplicationController
         )
       end
 
-      render json: {highlights: Highlight.all}
+      render json: {highlights: Highlight.all.reverse}
   end
 
 end
