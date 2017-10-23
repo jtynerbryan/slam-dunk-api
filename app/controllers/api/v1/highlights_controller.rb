@@ -12,7 +12,7 @@ class Api::V1::HighlightsController < ApplicationController
       highlights = parsed_posts["data"]["children"].select {|post| post["data"]["link_flair_css_class"] == "highlights" && !post["data"]["media_embed"]["content"].nil?}
 
       # get highlights from the five pages after r/nba's frontpage
-      5.times do
+      10.times do
         reddit_posts_response = RestClient.get('http://www.reddit.com/r/nba.json?after=' + next_page_id)
         parsed_posts = JSON.parse(reddit_posts_response)
 
