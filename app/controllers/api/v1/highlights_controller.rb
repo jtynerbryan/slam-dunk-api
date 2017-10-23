@@ -18,7 +18,10 @@ class Api::V1::HighlightsController < ApplicationController
         )
       end
 
-      render json: {highlights: Highlight.all.reverse}
+      # order persisted highlghts by the date they were created on reddit
+      highlights_to_send = Highlight.all.order(date_created: :desc)
+
+      render json: {highlights: highlights_to_send}
   end
 
 end
