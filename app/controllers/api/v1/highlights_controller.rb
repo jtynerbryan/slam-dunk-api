@@ -1,8 +1,8 @@
 class Api::V1::HighlightsController < ApplicationController
 
   def get_highlights
-      #initial request to reddit/r/nba
-      reddit_posts_response = RestClient.get('http://www.reddit.com/r/nba.json')
+      #initial request reddit
+      reddit_posts_response = RestClient.get(ENV['BASE_URL'])
       parsed_posts = JSON.parse(reddit_posts_response)
 
       # get the value of the after: in api response to get additional pages of of highlights
@@ -12,8 +12,8 @@ class Api::V1::HighlightsController < ApplicationController
       highlights = parsed_posts["data"]["children"].select {|post| post["data"]["link_flair_css_class"] == "highlights" && !post["data"]["media_embed"]["content"].nil?}
 
       # get highlights from the five pages after r/nba's frontpage
-      10.times do
-        reddit_posts_response = RestClient.get('http://www.reddit.com/r/nba.json?after=' + next_page_id)
+      5.times do
+        reddit_posts_response = RestClient.get("#{ENV['BASE_URL']}?after=#{next_page_id}")
         parsed_posts = JSON.parse(reddit_posts_response)
 
         next_page_id = parsed_posts["data"]["after"]
@@ -22,7 +22,6 @@ class Api::V1::HighlightsController < ApplicationController
 
         highlights.flatten!
       end
-
 
       # persist highlights, duplicates will be rejected because of unique title validation
       highlights.each do |highlight|
