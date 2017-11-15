@@ -4,8 +4,10 @@
 * View live site [here](https://slam-dunk.herokuapp.com) (please be patient while Heroku wakes up)
 
 ## Features
-* Upon request from React front end, persists all new highlights from 5 most recent pages at /r/nba in database, then renders all highlights to front end
- * Highlight title uniqueness [validation](http://guides.rubyonrails.org/active_record_validations.html) prevents duplicates from being created
+* Upon request from React front end, makes request to Reddit for all posts from 6 most recent pages at /r/nba
+ * Filters posts and only persists those that contain highlight content
+ * Highlight title uniqueness [validation](http://guides.rubyonrails.org/active_record_validations.html) prevents duplicates from being persisted
+* Sorts all highlights based on the date they were created on Reddit before rendering to front end
  
 ## Architecture
 * see `app` folder for application code
