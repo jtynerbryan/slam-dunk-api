@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       get "/get_highlights", to: 'highlights#get_highlights'
-      get "/update_highlights", to: 'highlghts#update_highlights'
+      get "/update_highlights", to: 'highlights#update_highlights'
     end
   end
 
